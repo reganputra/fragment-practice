@@ -14,6 +14,11 @@ import androidx.fragment.app.DialogFragment
 // Fragment untuk Dialog
 class OptionDialogFragment : DialogFragment() { //obyek fragment sekarang merupakan obyek dialog yang akan tampil mengambang di layar.
 
+    //  mengirimkan hasil pilihan pengguna dari dialog kembali ke fragment induk
+    interface OnOptionDialogListener {
+        fun onOptionChosen(text: String?)
+    }
+
     private lateinit var btnChoose: Button
     private lateinit var btnClose: Button
     private lateinit var rgOptions: RadioGroup
@@ -47,7 +52,8 @@ class OptionDialogFragment : DialogFragment() { //obyek fragment sekarang merupa
                     R.id.rb_moyes -> rbMoyes.text.toString().trim()
                     else -> null
                 }
-                optionDialogListener?.onOptionChosen(coach)
+
+                optionDialogListener?.onOptionChosen(coach)//mengirimkan hasil pilihan pengguna dari dialog kembali ke fragment induk
                 dialog?.dismiss()
             }
         }
@@ -59,6 +65,10 @@ class OptionDialogFragment : DialogFragment() { //obyek fragment sekarang merupa
     // untuk mengelola optionDialogListener ketika fragment dipanggil dan dimatikan
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
+        /*
+        Saat attach maka set optionDialogListener dengan listener dari detailCategoryFragment
+        */
         val fragment = parentFragment
 
         if (fragment is DetailCategoryFragment) {
@@ -68,12 +78,13 @@ class OptionDialogFragment : DialogFragment() { //obyek fragment sekarang merupa
 
     override fun onDetach() {
         super.onDetach()
+        /*
+        Saat detach maka set null pada optionDialogListener
+        */
         this.optionDialogListener = null
     }
 
-    interface OnOptionDialogListener {
-        fun onOptionChosen(text: String?)
-    }
+
 
 
 }

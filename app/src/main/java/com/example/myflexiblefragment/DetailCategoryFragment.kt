@@ -68,6 +68,7 @@ class DetailCategoryFragment : Fragment() {
     /*
     Kode yang akan dijalankan ketika option dialog dipilih ok
      */
+    // Menerima Pilihan dari Dialog
     internal var optionDialogListener: OptionDialogFragment.OnOptionDialogListener = object : OptionDialogFragment.OnOptionDialogListener {
         override fun onOptionChosen(text: String?) {
             Toast.makeText(requireActivity(), text, Toast.LENGTH_SHORT).show()
