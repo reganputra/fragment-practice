@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.commit
 
 //Fragment di activty
 class HomeFragment : Fragment(), View.OnClickListener {
@@ -33,11 +34,16 @@ class HomeFragment : Fragment(), View.OnClickListener {
         if (v?.id == R.id.btn_category){
             val categoryManager = CategoryFragment()
             val fragmentManager = parentFragmentManager // menggunakan parentFragmentManager untuk mendapatkan instance FragmentManager dari Activity di dalam Fragment
-            fragmentManager.beginTransaction().apply {
-                replace(R.id.frame_container, categoryManager, CategoryFragment::class.java.simpleName) // replace() ketika ingin menempelkan sebuah fragment baru.
+            // menggunakan KTX
+            fragmentManager.commit {
                 addToBackStack(null)
-                commit()
+                replace(R.id.frame_container, categoryManager, CategoryFragment::class.java.simpleName)
             }
+//            fragmentManager.beginTransaction().apply {
+//                replace(R.id.frame_container, categoryManager, CategoryFragment::class.java.simpleName) // replace() ketika ingin menempelkan sebuah fragment baru.
+//                addToBackStack(null)
+//                commit()
+//            }
 
         }
     }

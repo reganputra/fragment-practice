@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.commit
 
 // Flexible Fragment di Satu Activity
 class CategoryFragment : Fragment(), View.OnClickListener {
@@ -36,11 +37,16 @@ class CategoryFragment : Fragment(), View.OnClickListener {
            detailCategoryFragment.description = description // menggunakan setter untuk mengirim data ke DetailCategoryFragment
 
            val fragmentManager = parentFragmentManager
-           fragmentManager?.beginTransaction()?.apply {
-               replace(R.id.frame_container, detailCategoryFragment, DetailCategoryFragment::class.java.simpleName)
+           // menggunakan KTX
+           fragmentManager.commit {
                addToBackStack(null)
-               commit()
+               replace(R.id.frame_container, detailCategoryFragment, DetailCategoryFragment::class.java.simpleName)
            }
+//           fragmentManager?.beginTransaction()?.apply {
+//               replace(R.id.frame_container, detailCategoryFragment, DetailCategoryFragment::class.java.simpleName)
+//               addToBackStack(null)
+//               commit()
+//           }
        }
     }
 
